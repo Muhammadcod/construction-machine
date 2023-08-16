@@ -8,12 +8,20 @@ import { useLocation } from 'react-router-dom';
 const Inventory = () => {
   const location = useLocation();
   const machineTypes = useAppSelector(selectMachineType);
-  const machineOptions = machineTypes.map((type) => ({ label: type?.title, value: type?.title?.toLowerCase() }));
   const path = location?.pathname.split('/');
   const machineID = path[2];
   const machines = useAppSelector(selectMachines);
 
-  const filteredMachines = machineID ? machines?.filter((type) => type?.type === machineID) : machines;
+  const filteredMachines = machineID
+    ? machines?.filter((type) => type?.type === machineID)
+    : machines;
+  const filteredOptions = machineID
+    ? machineTypes?.filter((type) => type?.id === machineID)
+    : machineTypes;
+  const machineOptions = filteredOptions.map((type) => ({
+    label: type?.title,
+    value: type?.title?.toLowerCase(),
+  }));
 
   return (
     <div className="px-8 pt-8">

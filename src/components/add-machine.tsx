@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { firstLetterCap } from '../utils';
 import { selectMachineType } from '../features/template/templateSlice';
 import { addMachine } from '../features/inventory/inventorySlice';
+import Down from './images/down';
 
 type Props = {
   options: Array<MachineOption>;
@@ -42,20 +43,31 @@ const AddMachine = ({ options }: Props) => {
     setIsOpen(false);
   };
 
+  const optionCount = options.length;
   return (
     <div className="app">
       <div className="dropdown relative">
         <Button
-          className="w-full"
+          className="w-full flex items-center justify-center flex-row"
           onClick={(e) => {
             e.preventDefault();
-            toggleDropdown();
+            if (optionCount > 1) {
+              toggleDropdown();
+              return;
+            }
+            handleOptionClick(options[0]);
           }}
         >
-          Add Item
+          {optionCount > 1 ? (
+            <>
+              Add Item <Down fill="white" className="" width={20} height={20} />
+            </>
+          ) : (
+            'Add Item'
+          )}
         </Button>
 
-        {isOpen && (
+        {isOpen && options.length > 1 && (
           <ul className="border absolute bg-white">
             {options.map((option) => (
               <li
