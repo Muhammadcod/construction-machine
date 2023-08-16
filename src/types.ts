@@ -2,13 +2,23 @@ export interface MachineType {
   id: string;
   type: string;
   title: string;
-  baseFields: { object_type: string; object_title: string };
-  otherFields: Array<{ fieldName: string; fieldType: string | number | Date; field: string }>;
+  baseFields: Array<{ name: string; value: string; type?: string }>;
+  otherFields: Array<{ fieldName: string; attributeID: string; fieldType: string; field: string }>;
 }
 
-export interface OptionProp {
+export interface Machine {
   id: string;
+  title: string;
+  type: string;
+  form?: { [key: string]: any };
+}
+
+export interface AttributeProp {
   label: string;
-  type: string | number | Date;
-  field: string;
+  value: string;
+}
+
+export interface MachineOption {
+  label: string;
+  value: string;
 }

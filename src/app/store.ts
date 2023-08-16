@@ -1,18 +1,17 @@
 import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
-import machineTypesReducer from '../features/manage-machine/machineTypesSlice';
+import templateReducer from '../features/template/templateSlice';
+import inventoryReducer from '../features/inventory/inventorySlice';
 import { FLUSH, PAUSE, PERSIST, persistReducer, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 const persistConfig = {
   key: 'root',
   storage,
-  // whitelist: ['machinesTypes'],
 };
 
 const reducers = combineReducers({
-  counter: counterReducer,
-  machineTypes: machineTypesReducer,
+  template: templateReducer,
+  inventory: inventoryReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

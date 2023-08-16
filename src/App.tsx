@@ -1,23 +1,19 @@
-import MachineTypesComponent from './features/manage-machine/machineTypesComponent';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Layout from './layout';
+import Machines from './features/inventory/inventory';
+import MachineTypesComponent from './features/template/template';
 
 function App() {
   return (
-    <section className="min-h-screen">
-      <section className="flex flex-col h-full">
-        <div className="px-8 pt-8">
-          <div>
-            <h3 className="font-bold text-lg">Objector</h3>
-          </div>
-        </div>
-        <div className="flex-auto">
-          <>
-            <div>
-              <MachineTypesComponent />
-            </div>
-          </>
-        </div>
-      </section>
-    </section>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Machines />} />
+          <Route path="type/:id" element={<Machines />} />
+          <Route path="types" element={<MachineTypesComponent />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
