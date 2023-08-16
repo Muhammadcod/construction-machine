@@ -3,7 +3,7 @@ export interface MachineType {
   type: string;
   title: string;
   baseFields: Array<{ name: string; value: string; type?: string }>;
-  otherFields: Array<{ fieldName: string; attributeID: string; fieldType: string; field: string }>;
+  otherFields: Array<{ name: string; attributeID: string; type: string }>;
 }
 
 export interface Machine {

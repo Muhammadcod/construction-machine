@@ -1,4 +1,4 @@
-import MachineFieldGroup from '../../components/machine-field-group';
+import MachineForm from '../../components/machine-form';
 import { useAppSelector } from '../../app/hooks';
 import { selectMachineType } from '../template/templateSlice';
 import { selectMachines } from './inventorySlice';
@@ -21,7 +21,7 @@ const Inventory = () => {
         <div className="grid grid-cols md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10">
           {filteredMachines.map((machine, index) => (
             <div key={index} className="border">
-              <MachineFieldGroup item={machine} />
+              <MachineForm item={machine} />
             </div>
           ))}
           <div>

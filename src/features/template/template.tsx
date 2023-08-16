@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { addMachineType, selectMachineType } from './templateSlice';
-import InputFieldGroup from '../../components/input-field-group';
+import TemplateForm from '../../components/template-form';
 import Button from '../../components/ui/button';
 
 const Template = () => {
@@ -10,10 +10,10 @@ const Template = () => {
     <div className="px-8 pt-8">
       <div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10">
-          {machineTypes.map((field, index) => {
+          {machineTypes.map((machineType) => {
             return (
-              <div key={index} className="border">
-                <InputFieldGroup key={index} fieldGroup={field} />
+              <div key={machineType?.id} className="border">
+                <TemplateForm item={machineType} />
               </div>
             );
           })}

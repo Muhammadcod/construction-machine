@@ -25,9 +25,9 @@ export const templateSlice = createSlice({
         title: '',
         baseFields: [
           { name: 'Object type', value: '', type: 'input' },
-          { name: 'Object title', value: '', type: 'select' },
+          { name: 'Object title', value: 'title', type: 'select' },
         ],
-        otherFields: [{ fieldName: 'Title', attributeID: nanoid(), fieldType: 'text', field: 'Text' }],
+        otherFields: [{ name: 'Title', attributeID: nanoid(), type: 'text' }],
       });
     },
 
@@ -49,9 +49,11 @@ export const templateSlice = createSlice({
       const machine = state.machines.find((machine) => machine.id === machineID);
 
       if (machine) {
-        const fieldToUpdate = machine.otherFields.find((field) => field.attributeID === attributeID);
+        const fieldToUpdate = machine.otherFields.find(
+          (field) => field.attributeID === attributeID,
+        );
         if (fieldToUpdate) {
-          fieldToUpdate.fieldName = name;
+          fieldToUpdate.name = name;
         }
       }
     },
@@ -71,7 +73,7 @@ export const templateSlice = createSlice({
       if (machine) {
         const newField = machine.otherFields.find((field) => field.attributeID === attributeID);
         if (newField) {
-          newField.field = type;
+          newField.type = type;
         }
       }
     },
@@ -98,16 +100,15 @@ export const templateSlice = createSlice({
       });
     },
     addInputField: (state, action: PayloadAction<InputProp>) => {
-      const { machineID, label, value } = action.payload;
+      const { machineID, value } = action.payload;
       state.machines = state.machines.map((item) => {
         if (item.id === machineID) {
           return {
             ...item,
             otherFields: [...item.otherFields].concat({
-              fieldName: '',
+              name: '',
               attributeID: nanoid(),
-              fieldType: value,
-              field: label,
+              type: value,
             }),
           };
         }

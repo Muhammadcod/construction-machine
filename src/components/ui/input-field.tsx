@@ -7,6 +7,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   options?: AttributeProp[];
   selectOption?: ({ ...props }: AttributeProp) => void;
   btnClass?: string;
+  canRemove?: boolean;
   deleteField?: () => void;
 }
 

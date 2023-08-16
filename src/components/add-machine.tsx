@@ -20,11 +20,13 @@ const AddMachine = ({ options }: Props) => {
   };
 
   const getMachineData = (machinesTypes: Array<MachineType>, type: string) => {
-    const machine = machinesTypes.find((machine) => machine?.title?.toLowerCase() === type) ?? ({} as MachineType);
+    const machine =
+      machinesTypes.find((machine) => machine?.title?.toLowerCase() === type) ??
+      ({} as MachineType);
     const { title, id, baseFields, otherFields } = machine;
-    const savedFields = otherFields.map(({ fieldName, fieldType }) => ({
-      name: fieldName,
-      type: fieldType,
+    const savedFields = otherFields.map(({ name, type }) => ({
+      name: name,
+      type: type,
       value: '',
     }));
     savedFields.unshift({ name: baseFields[0]?.name, type: 'string', value: '' });

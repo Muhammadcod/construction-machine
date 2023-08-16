@@ -15,7 +15,7 @@ import { removeAllMachineType } from '../features/inventory/inventorySlice';
 import SelectInput from './ui/select-input';
 
 interface InputGroupProps {
-  fieldGroup: MachineType;
+  item: MachineType;
 }
 
 const options: AttributeProp[] = [
@@ -25,10 +25,10 @@ const options: AttributeProp[] = [
   { label: 'Date', value: 'date' },
 ];
 
-const InputFieldGroup = ({ fieldGroup }: InputGroupProps) => {
+const TemplateForm = ({ item }: InputGroupProps) => {
   const dispatch = useAppDispatch();
-  const { otherFields, baseFields, id } = fieldGroup;
-  const titleOptions: string[] = otherFields.map((item) => item?.fieldName);
+  const { otherFields, baseFields, id } = item;
+  const titleOptions: string[] = otherFields.map((item) => item?.name);
   const handleSelectOption = (data: AttributeProp) => {
     dispatch(
       addInputField({
@@ -119,12 +119,13 @@ const InputFieldGroup = ({ fieldGroup }: InputGroupProps) => {
             {otherFields.map((input, idx) => (
               <InputField
                 key={idx}
-                btnClass="w-full xtext-xs 2xl:text-base h-full rounded-br rounded-tr"
+                canRemove
                 options={options}
-                title={input?.field}
-                value={input?.fieldName}
+                value={input?.name}
                 rightComponent={SelectFieldType}
+                title={firstLetterCap(input?.type)}
                 deleteField={() => handleRemoveField(input?.attributeID)}
+                btnClass="w-full xtext-xs 2xl:text-base h-full rounded-br rounded-tr"
                 selectOption={(data) => handleUpdateType(input?.attributeID, data)}
                 onChange={(e) => handleChangeField(input?.attributeID, e.target.value)}
               />
@@ -132,7 +133,11 @@ const InputFieldGroup = ({ fieldGroup }: InputGroupProps) => {
           </div>
 
           <div>
-            <SelectFieldType options={options} btnClass="w-full" selectOption={handleSelectOption} />
+            <SelectFieldType
+              options={options}
+              btnClass="w-full"
+              selectOption={handleSelectOption}
+            />
           </div>
         </div>
       </form>
@@ -140,4 +145,4 @@ const InputFieldGroup = ({ fieldGroup }: InputGroupProps) => {
   );
 };
 
-export default InputFieldGroup;
+export default TemplateForm;
